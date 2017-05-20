@@ -1,0 +1,84 @@
+---
+title: "Ubuntu上的中文 Rmarkdown 解决方案 -- 以 Slides 为例"
+author: "Yanshi Luo"
+output:
+  beamer_presentation: 
+    pandoc_args: "--latex-engine=xelatex"
+    includes:
+      in_header: header.tex
+    keep_tex: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 安装texlive环境
+
+Error:
+
+```
+`ctex.sty` not found
+```
+
+在ubuntu上安装texlive-full环境(需要include ctex宏包，因此推荐安装full版本)
+
+```
+sudo apt-get install texlive-full
+```
+
+## 新建header.tex
+
+```
+\usepackage{ctex}
+```
+
+## 设置Rmd文件的yaml
+
+Error message:
+
+```
+Critical ctex error: "fontset-unavailable" CTeX fontset `fandol' is unavailable in current mode. For immediate help type H <return>. }
+```
+
+Reference<http://blog.csdn.net/simple_the_best/article/details/51244631>
+
+---
+
+### 修正：设置编译 Engine为xelatex
+
+```
+---
+title: "Ubuntu上的中文 Rmarkdown 解决方案 -- 以 Slides 为例"
+author: "Yanshi Luo"
+output:
+  beamer_presentation: 
+	pandoc_args: "--latex-engine=xelatex"
+	includes:
+	  in_header: header.tex
+	keep_tex: yes
+---
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+---
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
